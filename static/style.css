@@ -1,0 +1,101 @@
+/* Estilo global */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    color: #333333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo da barra de navegação */
+.navbar {
+    background-color: #EC0000;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo do título */
+h1 {
+    color: #EC0000;
+    text-align: center;
+}
+
+/* Formulário de login e cadastro */
+form {
+    background-color: #F7F7F7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #F7F7F7;
+}
+
+form input:focus {
+    border-color: #EC0000;
+}
+
+button {
+    background-color: #EC0000;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #D00000;
+}
+
+/* Links */
+a {
+    color: #EC0000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #333333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
