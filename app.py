@@ -20,10 +20,6 @@ class Usuario(db.Model):
     nome = db.Column(db.String(150), nullable=False)
     senha = db.Column(db.String(60), nullable=False)
 
-# Configurar o Flask-Admin
-admin = Admin(app, name='Admin', template_mode='123456')
-admin.add_view(ModelView(Usuario, db.session))
-
 # Formulário de Cadastro
 class CadastroForm(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired(), Length(min=2, max=150)])
@@ -66,11 +62,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         usuario = Usuario.query.filter_by(nome=form.nome.data).first()
-        if usuario and bcrypt.check_password_hash(usuario.senha, form.senha.data):
-            flash('Login realizado com sucesso!', 'success')
-            return redirect(url_for('dashboard'))
+        if usuario:
+            if bcrypt.check_password_hash(usuario.senha, form.senha.data):
+                flash('Login realizado com sucesso!', 'success')
+                return redirect(url_for('dashboard'))
+            else:
+                flash('Senha incorreta. Tente novamente.', 'danger')
         else:
-            flash('Falha no login. Verifique o nome e a senha.', 'danger')
+            flash('Usuário não encontrado. Verifique o nome.', 'danger')
     return render_template('login.html', form=form)
 
 # Rota para o dashboard (após login)
@@ -81,8 +80,8 @@ def dashboard():
 # Rota para listar usuários (temporária para desenvolvimento)
 @app.route('/usuarios')
 def lista_usuarios():
-    usuarios = Usuario.query.all()
-    return '<br>'.join([f'ID: {u.id}, Nome: {u.nome}' for u in usuarios])
+    usuarios = Usuario.query.all()  # Busca todos os usuários no banco
+    return render_template('usuarios.html', usuarios=usuarios)
 
 # Criar o banco de dados e as tabelas
 with app.app_context():
