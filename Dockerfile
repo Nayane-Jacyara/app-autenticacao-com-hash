@@ -1,18 +1,18 @@
-# Step 1: Use a Python base image
-FROM python:3.9-slim
+# Usando uma imagem base oficial do Python
+FROM python:3.11-slim
 
-# Step 2: Set the working directory
+# Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Step 3: Copy the requirements file and install dependencies
-COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Step 4: Copy the rest of the application files
+# Copiar os arquivos da aplicação para dentro do container
 COPY . /app
 
-# Step 5: Expose the Flask app's port
+# Atualizar o pip e instalar as dependências diretamente no Dockerfile
+RUN pip install --upgrade pip && \
+    pip install Flask Flask-SQLAlchemy Flask-Bcrypt Flask-WTF Flask-Admin pytest
+
+# Expor a porta que o Flask vai rodar
 EXPOSE 5000
 
-# Step 6: Run the application
-CMD ["python", "app/app.py"]
+# Comando para iniciar a aplicação Flask
+CMD ["python", "app.py"]
