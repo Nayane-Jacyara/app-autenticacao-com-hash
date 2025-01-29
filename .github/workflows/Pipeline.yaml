@@ -17,6 +17,9 @@ jobs:
       with:
         python-version: '3.12'  
 
+    - name: Definir PYTHONPATH
+      run: echo "PYTHONPATH=$PWD/app" >> $GITHUB_ENV
+
     - name: Instalar dependências
       run: |
         python -m venv venv  # Cria o ambiente virtual
