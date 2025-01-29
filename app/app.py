@@ -5,7 +5,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from flask_admin import Admin
-from urllib.parse import quote as url_quote
 from flask_admin.contrib.sqla import ModelView
 
 # Inicializando o Flask e o banco de dados
