@@ -23,11 +23,12 @@ jobs:
         source venv/bin/activate  # Ativa o ambiente
         pip install --upgrade pip  # Atualiza o pip
         pip install -r requirements.txt  # Instala as dependências
+        pip install pytest  # Instala pytest
 
     - name: Rodar os testes
       run: |
-        # Se você tiver testes, pode rodá-los aqui
-        pytest tests/
+        source venv/bin/activate  # Ativa o ambiente
+        pytest tests/  # Roda os testes
 
     - name: Rodar a aplicação 
       run: |
