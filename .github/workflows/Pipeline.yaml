@@ -1,41 +1,38 @@
-name: CI/CD Flask App
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+      - main  # Ou a branch que você usa para deploy
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+    - name: Checkout do código
+      uses: actions/checkout@v2  # Faz o checkout do repositório
 
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'  # Ajuste para a versão Python correta (3.12 no seu caso)
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'  
 
-      - name: Instalar dependências
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+    - name: Instalar dependências
+      run: |
+        python -m venv venv  # Cria o ambiente virtual
+        source venv/bin/activate  # Ativa o ambiente
+        pip install --upgrade pip  # Atualiza o pip
+        pip install -r requirements.txt  # Instala as dependências
 
-      - name: Configurar banco de dados SQLite
-        run: |
-          source venv/bin/activate
-          python -c "from app import db; db.create_all()"
+    - name: Rodar os testes
+      run: |
+        # Se você tiver testes, pode rodá-los aqui
+        pytest tests/
 
-      - name: Executar testes
-        run: |
-          source venv/bin/activate
-          pytest tests/  # Ou qualquer diretório onde seus testes estejam
+    - name: Rodar a aplicação 
+      run: |
+        source venv/bin/activate
+        python app.py  # Simula o deploy da aplicação 
 
-      - name: Simular Deploy (Opcional)
-        run: echo "Simulação de deploy bem-sucedida!"
+    - name: Mensagem de sucesso
+      run: echo "Aplicação foi rodada com sucesso!"
