@@ -25,10 +25,10 @@ jobs:
         pip install -r requirements.txt  # Instala as dependências
         pip install pytest  # Instala pytest
 
-    - name: Rodar os testes
+    - name: Rodar os testes com cobertura
       run: |
-        source venv/bin/activate  # Ativa o ambiente
-        pytest tests/  # Roda os testes
+        source venv/bin/activate
+        pytest --cov=app tests/
 
     - name: Rodar a aplicação 
       run: |
