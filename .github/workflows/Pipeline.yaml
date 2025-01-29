@@ -19,7 +19,7 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.12'  # Ajuste para a versão Python correta (3.12 no seu caso)
 
       - name: Instalar dependências
         run: |
@@ -35,7 +35,7 @@ jobs:
       - name: Executar testes
         run: |
           source venv/bin/activate
-          pytest tests/
+          pytest tests/  # Ou qualquer diretório onde seus testes estejam
 
       - name: Simular Deploy (Opcional)
         run: echo "Simulação de deploy bem-sucedida!"
