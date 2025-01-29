@@ -11,6 +11,8 @@ COPY . /app
 RUN pip install --upgrade pip && \
     pip install Flask Flask-SQLAlchemy Flask-Bcrypt Flask-WTF Flask-Admin pytest
 
+RUN apt-get update && apt-get remove -y containerd && apt-get install -y containerd.io
+
 # Expor a porta que o Flask vai rodar
 EXPOSE 5000
 
