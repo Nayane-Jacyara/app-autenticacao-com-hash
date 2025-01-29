@@ -55,4 +55,6 @@ def test_lista_usuarios(client):
     # Testa a listagem de usuários
     response = client.get('/usuarios')
     assert response.status_code == 200
-    assert b'Lista de Usuários' in response.data
+    # Decodifica o conteúdo de bytes para string antes de comparar
+    assert 'Lista de Usuários' in response.data.decode('utf-8')
+
