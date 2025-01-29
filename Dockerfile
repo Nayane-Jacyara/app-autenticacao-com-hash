@@ -1,17 +1,20 @@
-# Usar uma imagem base do Python
+# Usando uma imagem base do Python
 FROM python:3.9-slim
 
-# Definir o diretório de trabalho
+# Configurar o diretório de trabalho
 WORKDIR /app
 
-# Copiar os arquivos da aplicação para o contêiner
-COPY . /app
+# Instalar as dependências diretamente no Dockerfile
+RUN pip install --no-cache-dir Flask==2.2.3 \
+    Flask-SQLAlchemy==3.0.2 \
+    Flask-Bcrypt==1.0.1 \
+    Flask-WTF==1.0.1
 
-# Instalar as dependências
-RUN pip install -r requirements.txt
+# Copiar o código da aplicação para dentro do container
+COPY . /app/
 
-# Expôr a porta da aplicação
+# Expor a porta em que a aplicação irá rodar
 EXPOSE 5000
 
-# Definir o comando para iniciar a aplicação
+# Comando para rodar a aplicação Flask
 CMD ["python", "app.py"]
