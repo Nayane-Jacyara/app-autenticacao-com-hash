@@ -1,42 +1,35 @@
-name: Deploy Flask Application
+name: CI/CD - Deploy Flask App
 
 on:
   push:
     branches:
-      - main  # Trigger para o branch principal
+      - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # Você pode mudar para a plataforma de sua preferência
 
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
-    - name: Install dependencies
+    - name: Install Docker
       run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
+        sudo apt-get update
+        sudo apt-get install -y docker.io
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v2
-
-    - name: Build and run Flask app
+    - name: Build Docker image
       run: |
-        docker build -t flask-app .
-        docker run -d -p 5000:5000 flask-app
+        docker build -t flask-app .  # Construa a imagem do Docker usando o Dockerfile no repositório
 
-    - name: Verify application is running
+    - name: Run Docker container
       run: |
-        sleep 10  # Aguarda a aplicação subir
+        docker run -d -p 5000:5000 flask-app  # Executa o contêiner Flask
+
+    - name: Wait for the application to start
+      run: |
+        sleep 20  # Aguarda a aplicação subir
+
+    - name: Verify if the Flask app is running
+      run: |
         curl -f http://localhost:5000 || exit 1  # Verifica se a aplicação está respondendo
-
-    - name: Clean up Docker containers
-      run: |
-        docker ps -q --filter "ancestor=flask-app" | xargs docker stop | xargs docker rm
